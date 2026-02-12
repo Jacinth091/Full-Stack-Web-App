@@ -1,0 +1,42 @@
+/* html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+  box-sizing: border-box;
+} */
+.page {
+  display: none;
+}
+.page.active {
+  display: block;
+}
+body.not-authenticated .role-logged-in {
+  display: none;
+}
+body.authenticated .role-logged-out {
+  display: none;
+}
+.role-admin {
+  display: none;
+}
+body.is-admin .role-admin {
+  display: block;
+}
+
+/* .header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+.nav-items ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.nav-items a {
+  text-decoration: none;
+  color: black;
+} */
