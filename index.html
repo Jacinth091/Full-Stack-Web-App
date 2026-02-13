@@ -31,7 +31,7 @@
     </nav>
 
     <!-- ================================= HOME CODE ================================= -->
-    <div id="home" class="page active">
+    <div id="home" class="page">
       <main class="main-content">
           <div class="container-fluid">
             <h2 class="text-left mt-5  display-4">Welcome to Full-Stack App</h2>
@@ -45,7 +45,7 @@
           </div>
   
           <div class="container-fluid d-flex flex-column mt-4 gap-3">
-            <div class="bg-cyan-100 p-2 rounded border border-info d-flex align-items-center justify-content-start p-3">
+            <div class="bg-info-subtle p-2 rounded border border-info d-flex align-items-center justify-content-start p-3">
               <p class="text-center"><span class="fw-bold">Note</span>: All data is stored in <code class="fw-bold text-danger text-center">localStorage</code>. Refresh to reset.</p>
             </div>
             <button class="btn btn-primary align-self-start">Get Started</button>
@@ -108,10 +108,47 @@
       </main>
     </div>
 
+    <!-- ================================= VERIFY CODE ================================= -->
+    <div id="verify" class="page active">
+      <main class="main-content">
+        <div class="container-fluid d-flex flex-column gap-2">
+          <p class="fw-bold fs-5">Verify Your Email</p>
+          <div class="d-none bg-success-subtle rounded border border-success p-3">
+            <p class="text-start">A verification link has been sent to.</p>
+          </div>
+          <div class="d-flex flex-column align-items-center justify-content-center gap-2">
+            <p class="lead-1 align-self-start">For demo purposes, click below to emulate verification.</p>
+            <div class="align-self-start d-flex align-items-center justify-content-center w-auto gap-2 ">
+              <button type="button" class="btn btn-success">Simulate Email Verification</button>
+              <button type="button" class="btn btn-outline-secondary">Go to Login</button>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- ================================= PROFILE CODE ================================= -->
+    <div id="profile" class="page">
+      <main class="main-content">
+        <div class="container-fluid d-flex flex-column align-items-start justify-content-center gap-2">
+          <p class="fs-5">My Profile</p>
+          <div class="container-fluid py-4 border border-black d-flex flex-column align-items-start justify-content-space-between gap-2">
+            <p >Admin User</p>
+            <p class="fw-bold">Email: <span id="profile-email" class="fw-normal">email@gmail.com</span></p>
+            <p class=" fw-bold">Role: <span id="profile-role" class="fw-normal">Admin</span></p>
+            <button class="btn btn-outline-primary">Edit Profile</button>
+          </div>
+        </div>
+      </main>
+    </div>
+
+
+
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
       crossorigin="anonymous"
     ></script>
+    <script src="script.js"></script>
   </body>
 </html>
