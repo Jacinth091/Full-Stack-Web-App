@@ -18,61 +18,126 @@
     <nav class="navbar navbar-expand-lg bg-dark mb-3">
       <div class="container-fluid">
         <a class="navbar-brand fs-1 text-white" href="#">Full-Stack App</a>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav d-flex flex-column ms-auto">
+        <div
+          class="d-flex align-items-center justify-content-center"
+          id="navbarNav"
+        >
+          <ul class="navbar-nav d-flex flex-column ms-auto" id="auth-link">
             <li class="nav-item">
-              <a class="nav-link text-secondary" href="#">Login</a>
+              <a class="nav-link text-secondary" href="#/login">Login</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-secondary" href="#">Register</a>
+              <a class="nav-link text-secondary" href="#/register">Register</a>
             </li>
           </ul>
+
+          <div class="dropdown d-none" id="user-link">
+            <button
+              type="button"
+              class="btn btn-secondary dropdown-toggle"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <span id="name-holder">Name</span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end" id="drop-menu">
+              <li><a href="#profile" class="dropdown-item">Profile</a></li>
+              <li><a href="#request" class="dropdown-item">My Request</a></li>
+              <li>
+                <a href="#employee" class="role-admin dropdown-item"
+                  >Employees</a
+                >
+              </li>
+              <li>
+                <a href="#account" class="role-admin dropdown-item">Accounts</a>
+              </li>
+              <li>
+                <a href="#department" class="role-admin dropdown-item"
+                  >Departments</a
+                >
+              </li>
+              <li>
+                <a href="#" id="logout" class="dropdown-item text-danger"
+                  >Logout</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
     </nav>
 
     <!-- ================================= HOME CODE ================================= -->
-    <div id="home" class="page">
+    <div id="home" class="page active">
       <main class="main-content">
-          <div class="container-fluid">
-            <h2 class="text-left mt-5  display-4">Welcome to Full-Stack App</h2>
-            <p class="text-left lead">A static prototype before backend integration. Simulates:</p>
-            <ul class="text-left">
-              <li>Email registration + fake verification</li>
-              <li>Login with JWT-like token simulation</li>
-              <li>Role-based UI (Admin/User)</li>
-              <li>CRUD for Employees, Departments, Requests</li>
-            </ul>
+        <div class="container-fluid">
+          <h2 class="text-left mt-5 display-4">Welcome to Full-Stack App</h2>
+          <p class="text-left lead">
+            A static prototype before backend integration. Simulates:
+          </p>
+          <ul class="text-left">
+            <li>Email registration + fake verification</li>
+            <li>Login with JWT-like token simulation</li>
+            <li>Role-based UI (Admin/User)</li>
+            <li>CRUD for Employees, Departments, Requests</li>
+          </ul>
+        </div>
+
+        <div class="container-fluid d-flex flex-column mt-4 gap-3">
+          <div
+            class="bg-info-subtle p-2 rounded border border-info d-flex align-items-center justify-content-start p-3"
+          >
+            <p class="text-center">
+              <span class="fw-bold">Note</span>: All data is stored in
+              <code class="fw-bold text-danger text-center">localStorage</code>.
+              Refresh to reset.
+            </p>
           </div>
-  
-          <div class="container-fluid d-flex flex-column mt-4 gap-3">
-            <div class="bg-info-subtle p-2 rounded border border-info d-flex align-items-center justify-content-start p-3">
-              <p class="text-center"><span class="fw-bold">Note</span>: All data is stored in <code class="fw-bold text-danger text-center">localStorage</code>. Refresh to reset.</p>
-            </div>
-            <button class="btn btn-primary align-self-start">Get Started</button>
-          </div>
+          <button
+            class="btn btn-primary align-self-start"
+            onclick="navigateTo('#/login')"
+          >
+            Get Started
+          </button>
+        </div>
       </main>
-
     </div>
-
 
     <!-- ================================= LOGIN CODE ================================= -->
     <div id="login" class="page">
       <main class="main-content">
         <div class="container-fluid">
           <p class="fw-bold fs-5">Login</p>
-          <form>
+          <form id="loginForm">
             <div class="mb-3">
               <label for="email" class="form-label">Email</label>
-              <input type="email" class="form-control" id="email" name="email" required />
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                name="email"
+                required
+              />
             </div>
             <div class="mb-3">
               <label for="password" class="form-label">Password</label>
-              <input type="password" class="form-control" id="password" name="password" required />
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                name="password"
+                required
+              />
             </div>
             <button type="submit" class="btn btn-primary">Login</button>
-            <button type="button" class="btn btn-outline-secondary">Cancel</button>
+            <button
+              type="button"
+              class="btn btn-outline-secondary"
+              onclick="navigateTo('#/home')"
+            >
+              Cancel
+            </button>
           </form>
-
         </div>
       </main>
     </div>
@@ -83,27 +148,52 @@
       <main class="main-content">
         <div class="container-fluid">
           <p class="fw-bold fs-5">Register Account</p>
-          <form>
+          <form id="registerForm">
             <div class="mb-3">
               <label for="firstname" class="form-label">First Name</label>
-              <input type="text" class="form-control" id="firstname" name="firstname" required />
+              <input
+                type="text"
+                class="form-control"
+                id="firstname"
+                name="firstname"
+                required
+              />
             </div>
             <div class="mb-3">
               <label for="lastname" class="form-label">Last Name</label>
-              <input type="text" class="form-control" id="lastname" name="lastname" required />
+              <input
+                type="text"
+                class="form-control"
+                id="lastname"
+                name="lastname"
+                required
+              />
             </div>
             <div class="mb-3">
               <label for="email" class="form-label">Email</label>
-              <input type="email" class="form-control" id="email" name="email" required />
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                name="email"
+                required
+              />
             </div>
             <div class="mb-3">
               <label for="password" class="form-label">Password</label>
-              <input type="password" class="form-control" id="password" name="password" required />
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                name="password"
+                required
+              />
             </div>
             <button type="submit" class="btn btn-success">Sign Up</button>
-            <button type="button" class="btn btn-outline-secondary">Cancel</button>
+            <button type="button" class="btn btn-outline-secondary">
+              Cancel
+            </button>
           </form>
-
         </div>
       </main>
     </div>
@@ -113,14 +203,34 @@
       <main class="main-content">
         <div class="container-fluid d-flex flex-column gap-2">
           <p class="fw-bold fs-5">Verify Your Email</p>
-          <div class="d-none bg-success-subtle rounded border border-success p-3">
+          <div
+            class="d-none bg-success-subtle rounded border border-success p-3"
+          >
             <p class="text-start">A verification link has been sent to.</p>
           </div>
-          <div class="d-flex flex-column align-items-center justify-content-center gap-2">
-            <p class="lead-1 align-self-start">For demo purposes, click below to emulate verification.</p>
-            <div class="align-self-start d-flex align-items-center justify-content-center w-auto gap-2 ">
-              <button type="button" class="btn btn-success">Simulate Email Verification</button>
-              <button type="button" class="btn btn-outline-secondary">Go to Login</button>
+          <div
+            class="d-flex flex-column align-items-center justify-content-center gap-2"
+          >
+            <p class="lead-1 align-self-start">
+              For demo purposes, click below to emulate verification.
+            </p>
+            <div
+              class="align-self-start d-flex align-items-center justify-content-center w-auto gap-2"
+            >
+              <button
+                type="button"
+                class="btn btn-success"
+                onclick="verifyEmail()"
+              >
+                Simulate Email Verification
+              </button>
+              <button
+                type="button"
+                class="btn btn-outline-secondary"
+                onclick="navigateTo('#/login')"
+              >
+                Go to Login
+              </button>
             </div>
           </div>
         </div>
@@ -130,18 +240,28 @@
     <!-- ================================= PROFILE CODE ================================= -->
     <div id="profile" class="page">
       <main class="main-content">
-        <div class="container-fluid d-flex flex-column align-items-start justify-content-center gap-2">
+        <div
+          class="container-fluid d-flex flex-column align-items-start justify-content-center gap-2"
+        >
           <p class="fs-5">My Profile</p>
-          <div class="container-fluid py-4 border border-black d-flex flex-column align-items-start justify-content-space-between gap-2">
-            <p >Admin User</p>
-            <p class="fw-bold">Email: <span id="profile-email" class="fw-normal">email@gmail.com</span></p>
-            <p class=" fw-bold">Role: <span id="profile-role" class="fw-normal">Admin</span></p>
-            <button class="btn btn-outline-primary">Edit Profile</button>
+          <div
+            class="container-fluid py-4 border border-black d-flex flex-column align-items-start justify-content-space-between gap-2"
+          >
+            <p class="lead-2 fs-4"><span id="user-name"></span></p>
+            <p class="fw-bold">
+              Email:
+              <span id="user-email" class="fw-normal"></span>
+            </p>
+            <p class="fw-bold">
+              Role: <span id="user-role" class="fw-normal"></span>
+            </p>
+            <button class="btn btn-outline-primary" id="edit-profile">
+              Edit Profile
+            </button>
           </div>
         </div>
       </main>
     </div>
-
 
     <!-- ================================= EMPLOYEE CODE ================================= -->
     <div id="employee" class="page">
@@ -149,11 +269,12 @@
         <div class="container-fluid">
           <div class="d-flex align-items-center justify-content-between">
             <p class="h2">Employees</p>
-            <button type="button" class="btn btn-success">+ Add Employee</button>
-
+            <button type="button" class="btn btn-success">
+              + Add Employee
+            </button>
           </div>
           <table class="table table-striped align-middle">
-            <thead> 
+            <thead>
               <th scope="col">ID</th>
               <th scope="col">Name</th>
               <th scope="col">Position</th>
@@ -161,14 +282,18 @@
               <th scope="col">Actions</th>
             </thead>
             <tbody>
-              <td colspan="5" class="text-center bg-secondary-subtle ">No employees.</td>
+              <td colspan="5" class="text-center bg-secondary-subtle">
+                No employees.
+              </td>
               <tr>
                 <th scope="row">1</th>
                 <td>Jacinth Cedric Barral</td>
                 <td>Backend Engineer</td>
                 <td>IT Department</td>
                 <td>
-                  <button type="button" class="btn btn-outline-primary">Edit</button>
+                  <button type="button" class="btn btn-outline-primary">
+                    Edit
+                  </button>
                 </td>
               </tr>
               <!-- <tr>
@@ -182,29 +307,63 @@
           </table>
         </div>
         <div class="mx-3 rounded border border-secondary-subtle">
-          <div class="container-fluid rounded-top p-2 bg-secondary-subtle border-bottom border-secondary-subtle">
+          <div
+            class="container-fluid rounded-top p-2 bg-secondary-subtle border-bottom border-secondary-subtle"
+          >
             <p class="lead-4">Add/Edit Employee</p>
           </div>
-          <form class="container-fluid px-3 py-2 rounded d-flex flex-column align-items-start justify-content-center gap-2">
-            <div class="d-flex flex-column align-items-start justify-content-center w-100">
+          <form
+            class="container-fluid px-3 py-2 rounded d-flex flex-column align-items-start justify-content-center gap-2"
+          >
+            <div
+              class="d-flex flex-column align-items-start justify-content-center w-100"
+            >
               <label for="Id" class="form-label">Employee ID</label>
-              <input type="text" name="Id" id="Id" class="w-100 form-control">
+              <input type="text" name="Id" id="Id" class="w-100 form-control" />
             </div>
-            <div class="d-flex flex-column align-items-start justify-content-center w-100">
+            <div
+              class="d-flex flex-column align-items-start justify-content-center w-100"
+            >
               <label for="Email" class="form-label">User Email</label>
-              <input type="text" name="Email" id="Email" class="w-100 form-control">
+              <input
+                type="text"
+                name="Email"
+                id="Email"
+                class="w-100 form-control"
+              />
             </div>
-            <div class="d-flex flex-column align-items-start justify-content-center w-100">
+            <div
+              class="d-flex flex-column align-items-start justify-content-center w-100"
+            >
               <label for="Position" class="form-label">Position</label>
-              <input type="text" name="Position" id="Position" class="w-100 form-control">
+              <input
+                type="text"
+                name="Position"
+                id="Position"
+                class="w-100 form-control"
+              />
             </div>
-            <div class="d-flex flex-column align-items-start justify-content-center w-100">
+            <div
+              class="d-flex flex-column align-items-start justify-content-center w-100"
+            >
               <label for="Department" class="form-label">Department</label>
-              <input type="text" name="Department" id="Department" class="w-100 form-control">
+              <input
+                type="text"
+                name="Department"
+                id="Department"
+                class="w-100 form-control"
+              />
             </div>
-            <div class="d-flex flex-column align-items-start justify-content-center w-100">
+            <div
+              class="d-flex flex-column align-items-start justify-content-center w-100"
+            >
               <label for="Date" class="form-label">Hire Date</label>
-              <input type="date" name="Date" id="Date" class="w-100 form-control">
+              <input
+                type="date"
+                name="Date"
+                id="Date"
+                class="w-100 form-control"
+              />
             </div>
             <div class="mt-2">
               <button type="submit" class="btn btn-primary">Save</button>
@@ -217,41 +376,52 @@
 
     <!-- ================================= DEPARTMENT CODE ================================= -->
     <div id="department" class="page">
-    <main class="main-content">
-    <div class="container-fluid">
-        <div class="d-flex align-items-center justify-content-between">
-          <p class="h2">Departments</p>
-          <button type="button" class="btn btn-success">+ Add Department</button>
-
+      <main class="main-content">
+        <div class="container-fluid">
+          <div class="d-flex align-items-center justify-content-between">
+            <p class="h2">Departments</p>
+            <button type="button" class="btn btn-success">
+              + Add Department
+            </button>
+          </div>
+          <table class="table table-striped align-middle">
+            <thead>
+              <th scope="col">Name</th>
+              <th scope="col">Description</th>
+              <th scope="col">Actions</th>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Engineering</td>
+                <td>Software Team</td>
+                <td>
+                  <button type="button" class="btn btn-outline-primary">
+                    Edit
+                  </button>
+                  <button type="button" class="btn btn-outline-danger">
+                    Delete
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>HR</td>
+                <td>Human Resources</td>
+                <td>
+                  <button type="button" class="btn btn-outline-primary">
+                    Edit
+                  </button>
+                  <button type="button" class="btn btn-outline-danger">
+                    Delete
+                  </button>
+                </td>
+              </tr>
+              <td colspan="5" class="text-center bg-secondary-subtle d-none">
+                No department/s.
+              </td>
+            </tbody>
+          </table>
         </div>
-        <table class="table table-striped align-middle">
-          <thead> 
-            <th scope="col">Name</th>
-            <th scope="col">Description</th>
-            <th scope="col">Actions</th>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Engineering</td>
-              <td>Software Team</td>
-              <td>
-                <button type="button" class="btn btn-outline-primary">Edit</button>
-                <button type="button" class="btn btn-outline-danger">Delete</button>
-              </td>
-            </tr>
-            <tr>
-              <td>HR</td>
-              <td>Human Resources</td>
-              <td>
-                <button type="button" class="btn btn-outline-primary">Edit</button>
-                <button type="button" class="btn btn-outline-danger">Delete</button>
-              </td>
-            </tr>
-            <td colspan="5" class="text-center bg-secondary-subtle d-none ">No department/s.</td>
-          </tbody>
-        </table>
-      </div>
-    </main>
+      </main>
     </div>
 
     <!-- ================================= ACCOUNT CODE ================================= -->
@@ -260,11 +430,12 @@
         <div class="container-fluid">
           <div class="d-flex align-items-center justify-content-between mb-4">
             <p class="h2">Accounts</p>
-            <button type="button" class="btn btn-success">+ Add Employee</button>
-
+            <button type="button" class="btn btn-success">
+              + Add Employee
+            </button>
           </div>
           <table class="table table-striped align-middle">
-            <thead> 
+            <thead>
               <th scope="col">Name</th>
               <th scope="col">Email</th>
               <th scope="col">Role</th>
@@ -278,9 +449,15 @@
                 <td>Admin</td>
                 <td>✅</td>
                 <td>
-                  <button type="button" class="btn btn-outline-primary">Edit</button>
-                  <button type="button" class="btn btn-outline-warning">Reset Password</button>
-                  <button type="button" class="btn btn-outline-danger">Delete</button>
+                  <button type="button" class="btn btn-outline-primary">
+                    Edit
+                  </button>
+                  <button type="button" class="btn btn-outline-warning">
+                    Reset Password
+                  </button>
+                  <button type="button" class="btn btn-outline-danger">
+                    Delete
+                  </button>
                 </td>
               </tr>
               <tr>
@@ -289,42 +466,89 @@
                 <td>Admin</td>
                 <td>✅</td>
                 <td>
-                  <button type="button" class="btn btn-outline-primary">Edit</button>
-                  <button type="button" class="btn btn-outline-warning">Reset Password</button>
-                  <button type="button" class="btn btn-outline-danger">Delete</button>
+                  <button type="button" class="btn btn-outline-primary">
+                    Edit
+                  </button>
+                  <button type="button" class="btn btn-outline-warning">
+                    Reset Password
+                  </button>
+                  <button type="button" class="btn btn-outline-danger">
+                    Delete
+                  </button>
                 </td>
               </tr>
-              <td colspan="5" class="text-center bg-secondary-subtle ">No employees.</td>
+              <td colspan="5" class="text-center bg-secondary-subtle">
+                No employees.
+              </td>
             </tbody>
           </table>
         </div>
         <div class="mx-3 rounded border border-secondary-subtle">
-          <div class="container-fluid rounded-top p-2 bg-secondary-subtle border-bottom border-secondary-subtle">
+          <div
+            class="container-fluid rounded-top p-2 bg-secondary-subtle border-bottom border-secondary-subtle"
+          >
             <p class="lead-4">Add/Edit Account</p>
           </div>
-          <form class="container-fluid px-3 py-2 rounded d-flex flex-column align-items-start justify-content-center gap-2">
-            <div class="d-flex flex-column align-items-start justify-content-center w-100">
+          <form
+            class="container-fluid px-3 py-2 rounded d-flex flex-column align-items-start justify-content-center gap-2"
+          >
+            <div
+              class="d-flex flex-column align-items-start justify-content-center w-100"
+            >
               <label for="FirstName" class="form-label">First Name</label>
-              <input type="text" name="FirstName" id="FirstName" class="w-100 form-control">
+              <input
+                type="text"
+                name="FirstName"
+                id="FirstName"
+                class="w-100 form-control"
+              />
             </div>
-            <div class="d-flex flex-column align-items-start justify-content-center w-100">
+            <div
+              class="d-flex flex-column align-items-start justify-content-center w-100"
+            >
               <label for="LastName" class="form-label">Last Name</label>
-              <input type="text" name="LastName" id="LastName" class="w-100 form-control">
+              <input
+                type="text"
+                name="LastName"
+                id="LastName"
+                class="w-100 form-control"
+              />
             </div>
-            <div class="d-flex flex-column align-items-start justify-content-center w-100">
+            <div
+              class="d-flex flex-column align-items-start justify-content-center w-100"
+            >
               <label for="Email" class="form-label">Email</label>
-              <input type="text" name="Email" id="Email" class="w-100 form-control">
+              <input
+                type="text"
+                name="Email"
+                id="Email"
+                class="w-100 form-control"
+              />
             </div>
-            <div class="d-flex flex-column align-items-start justify-content-center w-100">
+            <div
+              class="d-flex flex-column align-items-start justify-content-center w-100"
+            >
               <label for="Password" class="form-label">Password</label>
-              <input type="text" name="Password" id="Password" class="w-100 form-control">
+              <input
+                type="text"
+                name="Password"
+                id="Password"
+                class="w-100 form-control"
+              />
             </div>
-            <div class="d-flex flex-column align-items-start justify-content-center w-100">
+            <div
+              class="d-flex flex-column align-items-start justify-content-center w-100"
+            >
               <label for="Role" class="form-label">Role</label>
-              <input type="text" name="Role" id="Role" class="w-100 form-control">
+              <input
+                type="text"
+                name="Role"
+                id="Role"
+                class="w-100 form-control"
+              />
             </div>
             <div class="d-flex align-items-center justify-content-center gap-2">
-              <input type="checkbox" name="Verified" id="Verified">
+              <input type="checkbox" name="Verified" id="Verified" />
               <label for="Verified" class="">Verified</label>
             </div>
             <div class="mt-2">
@@ -336,70 +560,113 @@
       </main>
     </div>
 
-
     <!-- ================================= REQUEST CODE ================================= -->
-    <div id="request" class="page active">
-    <main class="main-content">
-      <div class="container-fluid">
-        <div class="d-flex align-items-center justify-content-between mb-4">
-          <p class="h2">My Requests</p>
-          <button type="button" class="btn btn-success">+ New Request</button>
-        </div>
-      </div>
-      <div class="container-fluid d-flex flex-column align-items-start justify-content-center gap-4">
-        <p class="lead-3">You have no reqeusts yet.</p>
-        <button type="button" class="btn btn-success" id="modalButton" data-bs-toggle="modal" data-bs-target="#requestModal">Create One</button>
-      </div>
-    </main>
-
-    <section id="requestModal" class="modal fade" tabindex="-1">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          
-          <div class="modal-header">
-            <h1 class="modal-title fs-5">New Reqeust</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div id="request" class="page">
+      <main class="main-content">
+        <div class="container-fluid">
+          <div class="d-flex align-items-center justify-content-between mb-4">
+            <p class="h2">My Requests</p>
+            <button type="button" class="btn btn-success">+ New Request</button>
           </div>
-          
-          <div class="modal-body">
-            <div class="container-fluid">
-              <form class="d-flex gap-4 flex-column align-items-start justify-content-center">
-                <div class="d-flex flex-column align-items-start justify-content-center w-100">
-                  <div class="d-flex flex-column w-100">
-                    <label for="Type" class="form-label">Type</label>
-                    <input type="text" name="Type" id="Type" class="form-control w-100">
+        </div>
+        <div
+          class="container-fluid d-flex flex-column align-items-start justify-content-center gap-4"
+        >
+          <p class="lead-3">You have no reqeusts yet.</p>
+          <button
+            type="button"
+            class="btn btn-success"
+            id="modalButton"
+            data-bs-toggle="modal"
+            data-bs-target="#requestModal"
+          >
+            Create One
+          </button>
+        </div>
+      </main>
+
+      <section id="requestModal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5">New Reqeust</h1>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+
+            <div class="modal-body">
+              <div class="container-fluid">
+                <form
+                  class="d-flex gap-4 flex-column align-items-start justify-content-center"
+                >
+                  <div
+                    class="d-flex flex-column align-items-start justify-content-center w-100"
+                  >
+                    <div class="d-flex flex-column w-100">
+                      <label for="Type" class="form-label">Type</label>
+                      <input
+                        type="text"
+                        name="Type"
+                        id="Type"
+                        class="form-control w-100"
+                      />
+                    </div>
                   </div>
-                </div>
-                <div class="d-flex flex-column align-items-start justify-content-start">
-                  <div class="mb-3 w-100 d-flex flex-column gap-3" id="item-container"> 
-                    <label class="form-label">Items</label>
-                    <div class="d-flex align-items-center gap-1 w-100"> 
-                      <div class="flex-grow-1">
-                        <input type="text" class="form-control outline-none" placeholder="Item">
-                      </div>
-                      <div class="w-25">
-                        <input type="number" class="form-control" placeholder="Qty">
-                      </div>
-                      <div> <button type="button" id="add-btn" onclick="addItem()" class="btn btn-secondary">+</button>
+                  <div
+                    class="d-flex flex-column align-items-start justify-content-start"
+                  >
+                    <div
+                      class="mb-3 w-100 d-flex flex-column gap-3"
+                      id="item-container"
+                    >
+                      <label class="form-label">Items</label>
+                      <div class="d-flex align-items-center gap-1 w-100">
+                        <div class="flex-grow-1">
+                          <input
+                            type="text"
+                            class="form-control outline-none"
+                            placeholder="Item"
+                          />
+                        </div>
+                        <div class="w-25">
+                          <input
+                            type="number"
+                            class="form-control"
+                            placeholder="Qty"
+                          />
+                        </div>
+                        <div>
+                          <button
+                            type="button"
+                            id="add-btn"
+                            onclick="addItem()"
+                            class="btn btn-secondary"
+                          >
+                            +
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </form>
+                </form>
+              </div>
+            </div>
 
+            <div class="modal-footer align-self-start">
+              <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+              <button type="submit" class="btn btn-primary">
+                Submit Request
+              </button>
             </div>
           </div>
-          
-          <div class="modal-footer align-self-start">
-            <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
-            <button type="submit" class="btn btn-primary">Submit Request</button>
-          </div>  
-          
         </div>
-      </div>
-    </section>
+      </section>
     </div>
-    
+
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
