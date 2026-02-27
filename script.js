@@ -912,8 +912,13 @@ function renderEmployeeItems() {
 }
 
 function openEmpDetailCont() {
+  clearEmpForm();
   empDetailCont.classList.remove("d-none");
   populateDeptDropdown();
+
+  const hireDateField = document.getElementById("emp_date");
+  hireDateField.readOnly = false;
+  hireDateField.classList.remove("bg-body-secondary");
 }
 function closeEmpDetailCont() {
   clearEmpForm();
@@ -925,6 +930,10 @@ function clearEmpForm() {
   console.log(fields);
 
   fields.forEach((f) => {
+    if (f.id === "emp_id") {
+      f.value = "Employee ID read-only";
+      return;
+    }
     const suffix = f.id.replace("acc-", "");
     if (suffix === "check") {
       f.checked = false;
@@ -932,7 +941,7 @@ function clearEmpForm() {
       f.value = "";
     }
   });
-  selectedId = null;
+  // selectedId = null;
 }
 
 function prefillEmpForm() {
@@ -975,6 +984,10 @@ function prefillEmpForm() {
         console.log(`No data found for: ${dataKey}`);
       }
     });
+
+    const hireDateField = document.getElementById("emp_date");
+    hireDateField.readOnly = true;
+    hireDateField.classList.add("bg-body-secondary");
   } catch (error) {
     console.error(error);
     showToast(error.message, "danger");
@@ -983,14 +996,19 @@ function prefillEmpForm() {
 
 function saveOrEditEmployee(formData) {
   console.log("FormData", formData);
+  console.log("Selected Id: ", selectedId);
   try {
-    if (
-      !formData.email.trim() ||
-      !formData.position.trim() ||
-      !formData.department_id.trim() ||
-      !formData.hire_date.trim()
-    ) {
-      throw new Error("Important fields should not be empty.");
+    if (!formData.email?.trim()) {
+      throw new Error("User email should not be empty.");
+    }
+    if (!formData.position?.trim()) {
+      throw new Error("Position should not be empty.");
+    }
+    if (!formData.department_id || !formData.department_id.trim()) {
+      throw new Error("Please select a department.");
+    }
+    if (!formData.hire_date?.trim()) {
+      throw new Error("Please enter a hire date.");
     }
 
     if (!charactersOnly(formData.position.trim())) {
@@ -1021,6 +1039,10 @@ function saveOrEditEmployee(formData) {
       employees.length === 0 ? 1 : employees[employees.length - 1].id + 1;
 
     if (selectedId === null) {
+      const duplicateEmp = employees.find((em) => em.user_id === user.id);
+      if (duplicateEmp) {
+        throw new Error(`An employee record already exist.`);
+      }
       const newEmp = {
         id: empIdCount,
         // email: user.email,
@@ -1032,6 +1054,7 @@ function saveOrEditEmployee(formData) {
 
       window.db.employee.push(newEmp);
     } else {
+      console.log(selectedId);
       const employee = window.db.employee.find(
         (em) => em.id === Number(selectedId),
       );
@@ -1044,7 +1067,7 @@ function saveOrEditEmployee(formData) {
       employee.department_id = department.id;
       employee.hire_date = hireDate;
     }
-
+    selectedId = null;
     saveToStorage();
     renderEmployeeItems();
     closeEmpDetailCont();
@@ -1190,7 +1213,6 @@ empTableCont.addEventListener("click", (e) => {
     console.log("Selected Id: ", selectedId);
     console.log("helloo");
     prefillEmpForm();
-    console.log("Edit is Pressed");
   } else if (e.target.classList.contains("delEmpBtn")) {
     selectedId = e.target.dataset.id;
     // renderAccountDetails();
