@@ -46,7 +46,11 @@
             </button>
             <ul class="dropdown-menu dropdown-menu-end" id="drop-menu">
               <li><a href="#/profile" class="dropdown-item">Profile</a></li>
-              <li><a href="#/request" class="dropdown-item">My Request</a></li>
+              <li>
+                <a href="#/request" class="dropdown-item role-user"
+                  >My Request</a
+                >
+              </li>
               <li>
                 <a href="#/employee" class="role-admin dropdown-item"
                   >Employees</a
@@ -279,108 +283,164 @@
         <div class="container-fluid">
           <div class="d-flex align-items-center justify-content-between">
             <p class="h2">Employees</p>
-            <button type="button" class="btn btn-success">
+            <button
+              type="button"
+              class="btn btn-success"
+              id="add-emp-btn"
+              onclick="openEmpDetailCont()"
+            >
               + Add Employee
             </button>
           </div>
           <table class="table table-striped align-middle">
             <thead>
               <th scope="col">ID</th>
-              <th scope="col">Name</th>
+              <th scope="col">Email</th>
               <th scope="col">Position</th>
               <th scope="col">Dept</th>
+              <th scope="col">Hire Date</th>
               <th scope="col">Actions</th>
             </thead>
-            <tbody>
-              <td colspan="5" class="text-center bg-secondary-subtle">
-                No employees.
-              </td>
-              <tr>
-                <th scope="row">1</th>
-                <td>Jacinth Cedric Barral</td>
-                <td>Backend Engineer</td>
-                <td>IT Department</td>
-                <td>
-                  <button type="button" class="btn btn-outline-primary">
-                    Edit
-                  </button>
-                </td>
-              </tr>
-              <!-- <tr>
-                <th scope="row">1</th>
-                <td>Jacinth Cedric Barral</td>
-                <td>Backend Engineer</td>
-                <td>IT Department</td>
-                <td>Edit</td>
-              </tr> -->
-            </tbody>
+            <tbody id="emp-table-cont"></tbody>
           </table>
         </div>
-        <div class="mx-3 rounded border border-secondary-subtle">
+        <div
+          class="mx-3 rounded border border-secondary-subtle d-none"
+          id="emp-detail-cont"
+        >
           <div
             class="container-fluid rounded-top p-2 bg-secondary-subtle border-bottom border-secondary-subtle"
           >
             <p class="lead-4">Add/Edit Employee</p>
           </div>
           <form
+            method="post"
+            id="emp-form"
             class="container-fluid px-3 py-2 rounded d-flex flex-column align-items-start justify-content-center gap-2"
           >
             <div
               class="d-flex flex-column align-items-start justify-content-center w-100"
             >
-              <label for="Id" class="form-label">Employee ID</label>
-              <input type="text" name="Id" id="Id" class="w-100 form-control" />
+              <label for="emp_id" class="form-label">Employee ID</label>
+              <input
+                type="text"
+                name="id"
+                id="emp_id"
+                class="w-100 form-control-plaintext"
+                value="Employee ID read-only"
+                readonly
+              />
             </div>
             <div
               class="d-flex flex-column align-items-start justify-content-center w-100"
             >
-              <label for="Email" class="form-label">User Email</label>
+              <label for="emp_email" class="form-label">User Email</label>
               <input
                 type="text"
-                name="Email"
-                id="Email"
+                name="email"
+                id="emp_email"
                 class="w-100 form-control"
               />
             </div>
             <div
               class="d-flex flex-column align-items-start justify-content-center w-100"
             >
-              <label for="Position" class="form-label">Position</label>
+              <label for="emp_pos" class="form-label">Position</label>
               <input
                 type="text"
-                name="Position"
-                id="Position"
+                name="position"
+                id="emp_pos"
                 class="w-100 form-control"
               />
             </div>
             <div
               class="d-flex flex-column align-items-start justify-content-center w-100"
             >
-              <label for="Department" class="form-label">Department</label>
-              <input
+              <label for="emp_dept" class="form-label">Department</label>
+              <!-- <input
                 type="text"
-                name="Department"
-                id="Department"
+                name="department_name"
+                id="emp_dept"
                 class="w-100 form-control"
-              />
+              /> -->
+              <select
+                name="department_id"
+                id="emp_dept"
+                class="w-100 form-select"
+              >
+                <option value="" disabled selected>
+                  Select a department...
+                </option>
+              </select>
             </div>
             <div
               class="d-flex flex-column align-items-start justify-content-center w-100"
             >
-              <label for="Date" class="form-label">Hire Date</label>
+              <label for="emp_date" class="form-label">Hire Date</label>
               <input
                 type="date"
-                name="Date"
-                id="Date"
+                name="hire_date"
+                id="emp_date"
                 class="w-100 form-control"
               />
             </div>
             <div class="mt-2">
               <button type="submit" class="btn btn-primary">Save</button>
-              <button type="button" class="btn btn-secondary">Cancel</button>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                onclick="closeEmpDetailCont()"
+              >
+                Cancel
+              </button>
             </div>
           </form>
         </div>
+        <!-- DELETE EMPLOYEE CONFIRMATION MODAL -->
+        <section
+          id="delete-confirm-modal-emp"
+          class="modal fade"
+          tabindex="-1"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <div
+                  class="container-fluid d-flex align-items-center justify-content-between"
+                >
+                  <h1 class="modal-title fs-5">Delete Employee</h1>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+              </div>
+              <div class="modal-body"></div>
+              <div class="modal-footer align-self-start">
+                <div class="container-fluid">
+                  <button
+                    type="submit"
+                    class="btn btn-danger"
+                    id="confirm-delete-emp-btn"
+                  >
+                    Confirm Delete
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                    aria-label="Cancel"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
     </div>
 
@@ -390,7 +450,7 @@
         <div class="container-fluid">
           <div class="d-flex align-items-center justify-content-between">
             <p class="h2">Departments</p>
-            <button type="button" class="btn btn-success">
+            <button type="button" class="btn btn-success" id="add-department">
               + Add Department
             </button>
           </div>
@@ -400,35 +460,7 @@
               <th scope="col">Description</th>
               <th scope="col">Actions</th>
             </thead>
-            <tbody>
-              <tr>
-                <td>Engineering</td>
-                <td>Software Team</td>
-                <td>
-                  <button type="button" class="btn btn-outline-primary">
-                    Edit
-                  </button>
-                  <button type="button" class="btn btn-outline-danger">
-                    Delete
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>HR</td>
-                <td>Human Resources</td>
-                <td>
-                  <button type="button" class="btn btn-outline-primary">
-                    Edit
-                  </button>
-                  <button type="button" class="btn btn-outline-danger">
-                    Delete
-                  </button>
-                </td>
-              </tr>
-              <td colspan="5" class="text-center bg-secondary-subtle d-none">
-                No department/s.
-              </td>
-            </tbody>
+            <tbody id="dept-table-cont"></tbody>
           </table>
         </div>
       </main>
@@ -534,7 +566,6 @@
                   list="roleOptions"
                   class="form-control dropdown-toggle"
                   data-bs-toggle="dropdown"
-                  aria-expanded="false"
                   placeholder="Select or type a role..."
                   autocomplete="off"
                 />
@@ -543,7 +574,7 @@
                   id="role-menu"
                 >
                   <li><a class="dropdown-item">Admin</a></li>
-                  <li><a class="dropdown-item">Employee</a></li>
+                  <li><a class="dropdown-item">User</a></li>
                 </ul>
               </div>
               <!-- <input
@@ -684,9 +715,7 @@
                   ></button>
                 </div>
               </div>
-              <div class="modal-body">
-
-              </div>
+              <div class="modal-body"></div>
               <div class="modal-footer align-self-start">
                 <div class="container-fluid">
                   <button
@@ -718,22 +747,26 @@
         <div class="container-fluid">
           <div class="d-flex align-items-center justify-content-between mb-4">
             <p class="h2">My Requests</p>
-            <button type="button" class="btn btn-success">+ New Request</button>
+            <button
+              type="button"
+              class="btn btn-success"
+              id="new-request-btn"
+              data-bs-toggle="modal"
+              data-bs-target="#requestModal"
+            >
+              + New Request
+            </button>
           </div>
-        </div>
-        <div
-          class="container-fluid d-flex flex-column align-items-start justify-content-center gap-4"
-        >
-          <p class="lead-3">You have no reqeusts yet.</p>
-          <button
-            type="button"
-            class="btn btn-success"
-            id="modalButton"
-            data-bs-toggle="modal"
-            data-bs-target="#requestModal"
-          >
-            Create One
-          </button>
+          <table class="table table-striped align-middle">
+            <thead>
+              <th scope="col">ID</th>
+              <th scope="col">Type</th>
+              <th scope="col">Items</th>
+              <th scope="col">Date</th>
+              <th scope="col">Status</th>
+            </thead>
+            <tbody id="request-table-cont"></tbody>
+          </table>
         </div>
       </main>
 
@@ -741,7 +774,7 @@
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header">
-              <h1 class="modal-title fs-5">New Reqeust</h1>
+              <h1 class="modal-title fs-5">New Request</h1>
               <button
                 type="button"
                 class="btn-close"
@@ -753,50 +786,58 @@
             <div class="modal-body">
               <div class="container-fluid">
                 <form
+                  id="request-form"
                   class="d-flex gap-4 flex-column align-items-start justify-content-center"
                 >
                   <div
                     class="d-flex flex-column align-items-start justify-content-center w-100"
                   >
                     <div class="d-flex flex-column w-100">
-                      <label for="Type" class="form-label">Type</label>
-                      <input
-                        type="text"
-                        name="Type"
-                        id="Type"
-                        class="form-control w-100"
-                      />
+                      <label for="request-type" class="form-label">Type</label>
+                      <select
+                        name="type"
+                        id="request-type"
+                        class="form-select w-100"
+                      >
+                        <option value="" disabled selected>
+                          Select a type...
+                        </option>
+                        <option value="Equipment">Equipment</option>
+                        <option value="Leave">Leave</option>
+                        <option value="Resources">Resources</option>
+                      </select>
                     </div>
                   </div>
                   <div
-                    class="d-flex flex-column align-items-start justify-content-start"
+                    class="d-flex flex-column align-items-start justify-content-start w-100"
                   >
+                    <label class="form-label">Items</label>
                     <div
-                      class="mb-3 w-100 d-flex flex-column gap-3"
-                      id="item-container"
+                      class="mb-3 w-100 d-flex flex-column gap-2"
+                      id="request-item-container"
                     >
-                      <label class="form-label">Items</label>
-                      <div class="d-flex align-items-center gap-1 w-100">
+                      <div
+                        class="d-flex align-items-center gap-1 w-100 request-item-row"
+                      >
                         <div class="flex-grow-1">
                           <input
                             type="text"
-                            class="form-control outline-none"
-                            placeholder="Item"
+                            class="form-control request-item-name"
+                            placeholder="Item name"
                           />
                         </div>
                         <div class="w-25">
                           <input
                             type="number"
-                            class="form-control"
+                            class="form-control request-item-qty"
                             placeholder="Qty"
+                            min="1"
                           />
                         </div>
                         <div>
                           <button
                             type="button"
-                            id="add-btn"
-                            onclick="addItem()"
-                            class="btn btn-secondary"
+                            class="btn btn-secondary add-request-item-btn"
                           >
                             +
                           </button>
@@ -809,15 +850,28 @@
             </div>
 
             <div class="modal-footer align-self-start">
-              <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
-              <button type="submit" class="btn btn-primary">
+              <button type="submit" form="request-form" class="btn btn-primary">
                 Submit Request
+              </button>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Cancel
               </button>
             </div>
           </div>
         </div>
       </section>
     </div>
+
+    <!-- TOAST CONTAINER -->
+    <div
+      id="toast-container"
+      class="toast-container position-fixed bottom-0 end-0 p-3"
+      style="z-index: 1100"
+    ></div>
 
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"

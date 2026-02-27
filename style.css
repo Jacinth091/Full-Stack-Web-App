@@ -25,6 +25,12 @@ body.authenticated .role-logged-out {
 body.is-admin .role-admin {
   display: block;
 }
+.role-user {
+  display: none;
+}
+body.authenticated:not(.is-admin) .role-user {
+  display: block;
+}
 
 /* .header-container {
   display: flex;
